@@ -12,4 +12,8 @@ public interface PgProductsDao {
     List<Product> findByName(String  keyword);
 
     void insert(AddForm addForm);
+
+    void update(AddForm addForm);
+
+    Product findById(int id);
 }

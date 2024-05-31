@@ -72,6 +72,16 @@ public class controller {
         return "redirect:/menu";
     }
 
+    @GetMapping("/update")
+    public String update(@ModelAttribute("addForm") AddForm addForm){return  "update";}
+
+    @GetMapping("/detail/{id}")
+    public String delete(@PathVariable("id") int id ,Model model){
+        System.out.println(productsService.findById(id));
+        model.addAttribute("product",productsService.findById(id));
+        return  "detail";
+    }
+
 
 
 }

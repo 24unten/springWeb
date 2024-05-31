@@ -28,4 +28,13 @@ public class productsService implements Iproductsservice{
     public void insert(AddForm addForm) {
         productsDao.insert(addForm);
     }
+
+    public void update(AddForm addForm){
+        productsDao.update(addForm);
+    }
+
+    @Override
+    public Product findById(int id) {
+        return productsDao.findById(id);
+    }
 }

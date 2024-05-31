@@ -13,7 +13,7 @@
 
     <div class="btn-area">
         <div class="btn"><a class="basic-btn regist" href="/insert">新規登録</a></div>
-        <div class="btn"><a class="basic-btn regist" href="category.html">カテゴリ管理</a></div>
+        <div class="btn"><a class="basic-btn regist" href="/category">カテゴリ管理</a></div>
     </div>
     <p>成功メッセージ</p>
     <form method="get" action="#" class="search-form">
@@ -52,7 +52,7 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.category_name}"></td>
-            <td><a class="detail_btn" href="./detail.html">詳細</a></td>
+            <td><a class="detail_btn" th:href="'/detail/'+${product.id}">詳細</a></td>
         </tr>
         </tbody>
     </table>

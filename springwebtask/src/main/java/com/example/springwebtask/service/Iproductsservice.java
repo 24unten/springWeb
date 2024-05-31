@@ -11,4 +11,8 @@ public interface Iproductsservice {
     List<Product> findByName(String keyword);
 
     void insert(AddForm addForm);
+
+    void update(AddForm addForm);
+
+    Product findById(int id);
 }
