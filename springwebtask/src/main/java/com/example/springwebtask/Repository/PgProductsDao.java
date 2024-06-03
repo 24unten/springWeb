@@ -13,7 +13,7 @@ public interface PgProductsDao {
 
     void insert(AddForm addForm);
 
-    void update(AddForm addForm);
+    void update(AddForm addForm,int id);
 
     Product findById(int id);
 }

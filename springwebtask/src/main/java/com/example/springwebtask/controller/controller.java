@@ -72,8 +72,6 @@ public class controller {
         return "redirect:/menu";
     }
 
-    @GetMapping("/update")
-    public String update(@ModelAttribute("addForm") AddForm addForm){return  "update";}
 
     @GetMapping("/detail/{id}")
     public String delete(@PathVariable("id") int id ,Model model){
@@ -81,6 +79,34 @@ public class controller {
         model.addAttribute("product",productsService.findById(id));
         return  "detail";
     }
+
+    @GetMapping("/updateInput/{id}")
+    public String update(@PathVariable("id") int id,@ModelAttribute("addForm") AddForm addForm,Model model){
+        System.out.println("a");
+        model.addAttribute("product",productsService.findById(id));
+        System.out.println("a");
+        var user = productsService.findById(id);
+        addForm.setCategory_id(user.category_name());
+        addForm.setDescription(user.description());
+        addForm.setName(user.name());
+        addForm.setPrice(String.valueOf(user.price()));
+        addForm.setImg_path(user.image_path());
+        addForm.setProduct_id(user.product_id());
+        return "updateInput";
+    }
+
+    @PostMapping("/updateInput/{id}")
+    public String updateInput(@PathVariable("id") int id,@Validated @ModelAttribute("addForm") AddForm addForm, BindingResult bindingResult,Model model) {
+
+        if(bindingResult.hasErrors()) {
+            return "updateInput";
+        }
+        productsService.update(addForm,id);
+        return "redirect:/menu";
+    }
+
+
+
 
 
 

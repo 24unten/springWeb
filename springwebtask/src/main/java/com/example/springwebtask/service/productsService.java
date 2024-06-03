@@ -29,8 +29,8 @@ public class productsService implements Iproductsservice{
         productsDao.insert(addForm);
     }
 
-    public void update(AddForm addForm){
-        productsDao.update(addForm);
+    public void update(AddForm addForm,int id){
+        productsDao.update(addForm,id);
     }
 
     @Override

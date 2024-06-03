@@ -43,16 +43,16 @@ public class productsDao implements PgProductsDao {
     }
 
     @Override
-    public void update(AddForm addForm){
+    public void update(AddForm addForm,int id){
         var param = new MapSqlParameterSource();
         param.addValue("product_id", addForm.getProduct_id());
         param.addValue("name", addForm.getName());
         param.addValue("price", Integer.parseInt(addForm.getPrice()));
         param.addValue("category_id", Integer.parseInt(addForm.getCategory_id()));
         param.addValue("description", addForm.getDescription());
-        param.addValue("img_path", addForm.getImg_path());
-        jdbcTemplate.update("update products SET name = :name, price = :price category_id = :category_id" +
-                "description = :description img_path = :img_path WHERE product_id = :product_id", param);
+        param.addValue("id",id);
+        jdbcTemplate.update("update products SET product_id = :product_id, name = :name, price = :price ,category_id = :category_id," +
+                "description = :description WHERE id = :id", param);
     }
 
     @Override

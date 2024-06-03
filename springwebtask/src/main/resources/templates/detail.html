@@ -46,8 +46,10 @@
             <div>
                 <div class="btns">
                     <input type="button" onclick="openModal()" value="削除" class="basic-btn">
-                    <input type="button" onclick="location.href='/updateInput'" value="編集" class="basic-btn">
+                    <input type="button" th:onclick="|location.href='/updateInput/__${product.id}__'|" value="編集" class="basic-btn">
                     <input type="button" onclick="location.href='/menu'" value="戻る" class="cancel-btn">
+<!--                    <td><a class="detail_btn" th:href="'/detail/'+${product.id}">詳細</a></td>-->
+<!--                    <button th:onclick="|location.href='/update/__${products.id()}__'|">修正</button>-->
                 </div>
                 <div id="modal">
                     <p class="modal-message">削除しますか？</p>
