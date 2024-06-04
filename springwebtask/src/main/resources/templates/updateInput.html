@@ -34,11 +34,13 @@
                     <span class="error" th:each="error: ${#fields.errors('price')}">[[ ${error} ]]</span>
                 </div>
                 <div>
-                    <label>カテゴリ</label> <select name="categoryId"  th:field="*{category_id}" class="base-text">
-                    <option value="1" selected>ペン</option>
-                    <option value="2">ノート</option>
-                    <option value="3">消しゴム</option>
-                    <option value="4">のり</option>
+                    <label class="required">カテゴリ</label>
+                    <select name="categoryId"  th:field="*{category_id}" class="base-text">
+                    <option  th:each="category : ${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
+<!--                    <option value="1" selected>ペン</option>-->
+<!--                    <option value="2">ノート</option>-->
+<!--                    <option value="3">消しゴム</option>-->
+<!--                    <option value="4">のり</option>-->
                 </select>
                 </div>
                 <div>

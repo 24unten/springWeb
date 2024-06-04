@@ -1,22 +1,14 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>カテゴリ管理</title>
-  <link href="css/commons.css" rel="stylesheet">
+  <link href="../css/commons.css" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="header">
-  <h1 class="site_logo"><a href="menu.html">商品管理システム</a></h1>
-  <div class="user">
-    <p class="user_name">佐藤さん、こんにちは</p>
-    <form class="logout_form" action="logout.html" method="get">
-      <button class="custom-btn" type="submit">
-        <img src="images/ドアアイコン.png">ログアウト</button>
-    </form>
-  </div>
-</div>
+  <th:block th:insert="common/header"></th:block>
 
 <hr>
 
@@ -30,30 +22,36 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
+  <tr th:each="category : ${categoryList}">
     <td><input type="checkbox"></td>
-    <td>1</td>
-    <td><input type="text" id="category-1" value="筆記具" disabled></td>
-    <td><button class="edit-btn" value="1">編集</button></td>
+    <td >[[${category.id}]]</td>
+    <td><input type="text" id="category-1" th:value="${category.name}" disabled></td>
+    <td><button class="edit-btn" th:value="${category.id}">編集</button></td>
   </tr>
-  <tr>
-    <td><input type="checkbox"></td>
-    <td>2</td>
-    <td><input type="text" id="category-2" value="紙製品" disabled></td>
-    <td><button class="edit-btn" value="2">編集</button></td>
-  </tr>
-  <tr>
-    <td><input type="checkbox"></td>
-    <td>3</td>
-    <td><input type="text" id="category-3" value="事務用品" disabled></td>
-    <td><button class="edit-btn" value="3">編集</button></td>
-  </tr>
+<!--  <tr>-->
+<!--    <td><input type="checkbox"></td>-->
+<!--    <td>1</td>-->
+<!--    <td><input type="text" id="category-1" value="筆記具" disabled></td>-->
+<!--    <td><button class="edit-btn" value="1">編集</button></td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <td><input type="checkbox"></td>-->
+<!--    <td>2</td>-->
+<!--    <td><input type="text" id="category-2" value="紙製品" disabled></td>-->
+<!--    <td><button class="edit-btn" value="2">編集</button></td>-->
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <td><input type="checkbox"></td>-->
+<!--    <td>3</td>-->
+<!--    <td><input type="text" id="category-3" value="事務用品" disabled></td>-->
+<!--    <td><button class="edit-btn" value="3">編集</button></td>-->
+<!--  </tr>-->
   </tbody>
 </table>
 
 <div class="btns">
   <input type="button" onclick="openModal()" value="削除" class="basic-btn">
-  <input type="button" onclick="location.href='./menu.html'" value="戻る" class="cancel-btn">
+  <input type="button" onclick="location.href='/menu'" value="戻る" class="cancel-btn">
 </div>
 <div id="modal">
   <p class="modal-message">削除しますか？</p>
@@ -68,7 +66,7 @@
   'use strict'
 
   document.getElementById('delete-btn').addEventListener('click', () => {
-    location.href = './menu.html'
+    location.href = '/menu'
   })
 
   const btns = document.getElementsByClassName('edit-btn')

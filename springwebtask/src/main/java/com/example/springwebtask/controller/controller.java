@@ -3,6 +3,7 @@ package com.example.springwebtask.controller;
 import com.example.springwebtask.Form.AddForm;
 import com.example.springwebtask.Form.LoginForm;
 import com.example.springwebtask.service.IUsersService;
+import com.example.springwebtask.service.IcategoriesServis;
 import com.example.springwebtask.service.Iproductsservice;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class controller {
 
     @Autowired
     Iproductsservice productsService;
+
+    @Autowired
+    IcategoriesServis categoriesService;
 
     //login
     @GetMapping("/login")
@@ -57,7 +61,8 @@ public class controller {
     }
 
     @GetMapping("/insert")
-    public  String insert(@ModelAttribute("addForm") AddForm addForm){
+    public  String insert(@ModelAttribute("addForm") AddForm addForm,Model model) {
+        model.addAttribute("categoryList",categoriesService.findAll());
         return "insert";
     }
 
@@ -84,6 +89,7 @@ public class controller {
     public String update(@PathVariable("id") int id,@ModelAttribute("addForm") AddForm addForm,Model model){
         System.out.println("a");
         model.addAttribute("product",productsService.findById(id));
+        model.addAttribute("categoryList",categoriesService.findAll());
         System.out.println("a");
         var user = productsService.findById(id);
         addForm.setCategory_id(user.category_name());
@@ -104,6 +110,20 @@ public class controller {
         productsService.update(addForm,id);
         return "redirect:/menu";
     }
+
+    @GetMapping("/category")
+    public String category(Model model){
+        model.addAttribute("categoryList",categoriesService.findAll());
+        System.out.println(categoriesService.findAll());
+        return "category";
+    }
+
+    @GetMapping("/logout")
+    private String logout(){
+        session.removeAttribute("user");
+        return "logout";
+    }
+
 
 
 
