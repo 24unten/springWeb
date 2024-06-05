@@ -78,12 +78,7 @@ public class controller {
     }
 
 
-    @GetMapping("/detail/{id}")
-    public String delete(@PathVariable("id") int id ,Model model){
-        System.out.println(productsService.findById(id));
-        model.addAttribute("product",productsService.findById(id));
-        return  "detail";
-    }
+
 
     @GetMapping("/updateInput/{id}")
     public String update(@PathVariable("id") int id,@ModelAttribute("addForm") AddForm addForm,Model model){
@@ -122,6 +117,22 @@ public class controller {
     private String logout(){
         session.removeAttribute("user");
         return "logout";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@Validated @PathVariable("id") int id,Model model){
+        productsService.delete(id);
+        return "redirect:/menu";
+    }
+
+
+
+
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable("id") int id ,Model model){
+        System.out.println(productsService.findById(id));
+        model.addAttribute("product",productsService.findById(id));
+        return  "detail";
     }
 
 

@@ -17,7 +17,7 @@
         <div class="img_block">
             <img src="../images/マッキー.png" class="product-img"><br>
         </div>
-        <form action="delete" method="post">
+        <form action="" method="post">
             <fieldset class="label-130 product_block">
 <!--                <p class="error">エラーメッセージ</p>-->
                 <div>
@@ -48,13 +48,12 @@
                     <input type="button" onclick="openModal()" value="削除" class="basic-btn">
                     <input type="button" th:onclick="|location.href='/updateInput/__${product.id}__'|" value="編集" class="basic-btn">
                     <input type="button" onclick="location.href='/menu'" value="戻る" class="cancel-btn">
-<!--                    <td><a class="detail_btn" th:href="'/detail/'+${product.id}">詳細</a></td>-->
-<!--                    <button th:onclick="|location.href='/update/__${products.id()}__'|">修正</button>-->
+
                 </div>
                 <div id="modal">
                     <p class="modal-message">削除しますか？</p>
                     <div class="btns">
-                        <button type="button" id="delete-btn" class="basic-btn">削除</button>
+                        <input type="button" th:onclick="|location.href='/delete/__${product.id}__'|" id="delete-btn" class="basic-btn" value="削除">
                         <button type="button" onclick="closeModal()" class="cancel-btn">キャンセル</button>
                     </div>
                 </div>
@@ -65,10 +64,10 @@
 <div id="fadeLayer"></div>
 <script src="../js/commons.js"></script>
 <script>
-    'use strict'
-    document.getElementById('delete-btn').addEventListener('click', () => {
-      location.href = '/menu'
-    })
+<!--    'use strict'-->
+<!--    document.getElementById('delete-btn').addEventListener('click', () => {-->
+<!--      location.href = '/menu'-->
+<!--    })-->
 </script>
 </body>
 </html>

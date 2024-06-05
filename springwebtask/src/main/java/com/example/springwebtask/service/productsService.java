@@ -37,4 +37,9 @@ public class productsService implements Iproductsservice{
     public Product findById(int id) {
         return productsDao.findById(id);
     }
+
+    @Override
+    public void delete(int id) { productsDao.delete(id);
+
+    }
 }

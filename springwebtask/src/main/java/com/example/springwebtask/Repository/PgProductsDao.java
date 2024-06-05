@@ -16,4 +16,6 @@ public interface PgProductsDao {
     void update(AddForm addForm,int id);
 
     Product findById(int id);
+
+    void delete(int id);
 }

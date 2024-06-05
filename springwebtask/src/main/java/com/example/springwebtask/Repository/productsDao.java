@@ -63,4 +63,12 @@ public class productsDao implements PgProductsDao {
         var detail =  jdbcTemplate.query("SELECT products.id,product_id,categories.name AS category_name ,products.name,price,image_path,description,products.created_at,products.updated_at FROM products JOIN categories ON products.category_id = categories.id where products.id = :id", param, new DataClassRowMapper<>(Product.class));
         return detail.get(0);
     }
+
+    @Override
+    public void delete(int id){
+        var param = new MapSqlParameterSource();
+        param.addValue("id",id);
+        jdbcTemplate.update("delete FROM products WHERE id = :id", param);
+    }
+
 }
