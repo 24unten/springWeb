@@ -13,10 +13,10 @@
 
 
     <div class="btn-area">
-        <div class="btn"><a class="basic-btn regist" href="/insert">新規登録</a></div>
-        <div class="btn"><a class="basic-btn regist" href="/category">カテゴリ管理</a></div>
+        <div class="btn"><a class="basic-btn regist" href="/insert" th:if="${session.user.role} == '1'">新規登録</a></div>
+        <div class="btn"><a class="basic-btn regist" href="/category" th:if="${session.user.role} == '1'">カテゴリ管理</a></div>
     </div>
-    <p>成功メッセージ</p>
+    <p class="error">[[ ${errorMsg} ]]</p>
     <form method="get" action="#" class="search-form">
         <div class="order">
             <select name="order" class="base-text">

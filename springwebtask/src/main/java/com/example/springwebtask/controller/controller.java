@@ -51,6 +51,10 @@ public class controller {
 
     @GetMapping("/menu")
     public String menu(@RequestParam(name="keyword",defaultValue="") String keyword, Model model) {
+        if(session.getAttribute("user")==null){
+            return "redirect:/login";
+        }
+
         if(keyword.isEmpty()) {
             model.addAttribute("productList",productsService.findAll());
         }else {
@@ -62,6 +66,9 @@ public class controller {
 
     @GetMapping("/insert")
     public  String insert(@ModelAttribute("addForm") AddForm addForm,Model model) {
+        if(session.getAttribute("user")==null){
+            return "redirect:/login";
+        }
         model.addAttribute("categoryList",categoriesService.findAll());
         return "insert";
     }
@@ -70,10 +77,12 @@ public class controller {
     public String pinsert(@Validated @ModelAttribute("addForm") AddForm addForm, BindingResult bindingResult,Model model) {
 
         if(bindingResult.hasErrors()) {
+            model.addAttribute("categoryList",categoriesService.findAll());
             return "insert";
         }
         System.out.println(addForm);
         productsService.insert(addForm);
+        model.addAttribute("errorMsg","IDまたはパスワードが不正です");
         return "redirect:/menu";
     }
 
@@ -82,6 +91,9 @@ public class controller {
 
     @GetMapping("/updateInput/{id}")
     public String update(@PathVariable("id") int id,@ModelAttribute("addForm") AddForm addForm,Model model){
+        if(session.getAttribute("user")==null){
+            return "redirect:/login";
+        }
         System.out.println("a");
         model.addAttribute("product",productsService.findById(id));
         model.addAttribute("categoryList",categoriesService.findAll());
@@ -108,6 +120,9 @@ public class controller {
 
     @GetMapping("/category")
     public String category(Model model){
+        if(session.getAttribute("user")==null){
+            return "redirect:/login";
+        }
         model.addAttribute("categoryList",categoriesService.findAll());
         System.out.println(categoriesService.findAll());
         return "category";
@@ -130,6 +145,9 @@ public class controller {
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") int id ,Model model){
+        if(session.getAttribute("user")==null){
+            return "redirect:/login";
+        }
         System.out.println(productsService.findById(id));
         model.addAttribute("product",productsService.findById(id));
         return  "detail";

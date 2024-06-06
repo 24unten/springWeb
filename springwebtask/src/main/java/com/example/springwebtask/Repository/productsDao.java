@@ -3,6 +3,7 @@ package com.example.springwebtask.Repository;
 import com.example.springwebtask.Form.AddForm;
 import com.example.springwebtask.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -31,28 +32,36 @@ public class productsDao implements PgProductsDao {
     }
 
     @Override
-    public void insert(AddForm addForm){
-        var param = new MapSqlParameterSource();
-        param.addValue("product_id", addForm.getProduct_id());
-        param.addValue("name", addForm.getName());
-        param.addValue("price", Integer.parseInt(addForm.getPrice()));
-        param.addValue("category_id", Integer.parseInt(addForm.getCategory_id()));
-        param.addValue("description", addForm.getDescription());
-        param.addValue("img_path", addForm.getImg_path());
-        jdbcTemplate.update("INSERT INTO products (product_id,name,price,category_id,description,image_path) VALUES (:product_id,:name,:price,:category_id,:description,:img_path)", param);
+    public void insert(AddForm addForm) {
+        try {
+            var param = new MapSqlParameterSource();
+            param.addValue("product_id", addForm.getProduct_id());
+            param.addValue("name", addForm.getName());
+            param.addValue("price", Integer.parseInt(addForm.getPrice()));
+            param.addValue("category_id", Integer.parseInt(addForm.getCategory_id()));
+            param.addValue("description", addForm.getDescription());
+            param.addValue("img_path", addForm.getImg_path());
+            jdbcTemplate.update("INSERT INTO products (product_id,name,price,category_id,description,image_path) VALUES (:product_id,:name,:price,:category_id,:description,:img_path)", param);
+        }catch (DuplicateKeyException e) {
+        }
+
     }
 
     @Override
     public void update(AddForm addForm,int id){
-        var param = new MapSqlParameterSource();
-        param.addValue("product_id", addForm.getProduct_id());
-        param.addValue("name", addForm.getName());
-        param.addValue("price", Integer.parseInt(addForm.getPrice()));
-        param.addValue("category_id", Integer.parseInt(addForm.getCategory_id()));
-        param.addValue("description", addForm.getDescription());
-        param.addValue("id",id);
-        jdbcTemplate.update("update products SET product_id = :product_id, name = :name, price = :price ,category_id = :category_id," +
-                "description = :description WHERE id = :id", param);
+        try {
+            var param = new MapSqlParameterSource();
+            param.addValue("product_id", addForm.getProduct_id());
+            param.addValue("name", addForm.getName());
+            param.addValue("price", Integer.parseInt(addForm.getPrice()));
+            param.addValue("category_id", Integer.parseInt(addForm.getCategory_id()));
+            param.addValue("description", addForm.getDescription());
+            param.addValue("id", id);
+            jdbcTemplate.update("update products SET product_id = :product_id, name = :name, price = :price ,category_id = :category_id," +
+                    "description = :description WHERE id = :id", param);
+        }catch (DuplicateKeyException e){
+
+        }
     }
 
     @Override
