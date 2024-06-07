@@ -43,6 +43,7 @@ public class productsDao implements PgProductsDao {
             param.addValue("img_path", addForm.getImg_path());
             jdbcTemplate.update("INSERT INTO products (product_id,name,price,category_id,description,image_path) VALUES (:product_id,:name,:price,:category_id,:description,:img_path)", param);
         }catch (DuplicateKeyException e) {
+            throw new RuntimeException();
         }
 
     }
@@ -60,7 +61,7 @@ public class productsDao implements PgProductsDao {
             jdbcTemplate.update("update products SET product_id = :product_id, name = :name, price = :price ,category_id = :category_id," +
                     "description = :description WHERE id = :id", param);
         }catch (DuplicateKeyException e){
-
+            throw new RuntimeException();
         }
     }
 

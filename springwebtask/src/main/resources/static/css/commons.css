@@ -79,7 +79,7 @@ table {
 }
 
 table th {
-  background:#68a9eb;
+  background:#FF9E00;
 	font-weight: bold;
 	color:#fff;
 }
@@ -94,7 +94,7 @@ table tr:nth-child(odd){
 }
 
 .detail_btn {
-  background-color:#004a94;
+  background-color:#FF9E00;
   display: block;       /* リンクをブロックレベル化して表示 */
   padding: 5px 10px 5px 10px;
 }
@@ -110,6 +110,7 @@ a {
 
 /** ヘッダー **/
 .header {
+
   display: flex;
   justify-content: space-between;
 }
@@ -127,7 +128,7 @@ a {
 .custom-btn {
   border: none;
   border-radius: 5px;
-  background-color: #004a94;
+  background-color: #FF9E00;
   padding: auto;
   line-height: 2;
   padding: 10px;
@@ -168,7 +169,7 @@ hr {
   height: auto;
   border: none;
   border-radius: 5px;
-  background-color: #004a94;
+  background-color: #008500;
   padding: auto;
   line-height: 2;
   padding: 5px 10px 5px 10px;

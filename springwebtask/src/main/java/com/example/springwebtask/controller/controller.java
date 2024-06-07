@@ -28,6 +28,9 @@ public class controller {
     @Autowired
     IcategoriesServis categoriesService;
 
+    private String[] successMsgList = {"","追加が成功しました！","更新が成功しました!!!","!削除が成功しました!"};
+    private int successIndex = 0;
+
     //login
     @GetMapping("/login")
     public String index(@ModelAttribute("loginForm") LoginForm loginForm) {
@@ -60,7 +63,8 @@ public class controller {
         }else {
             model.addAttribute("productList",productsService.findByName(keyword));
         }
-
+        model.addAttribute("successMsg",successMsgList[successIndex]);
+        successIndex = 0;
         return "menu";
     }
 
@@ -80,10 +84,19 @@ public class controller {
             model.addAttribute("categoryList",categoriesService.findAll());
             return "insert";
         }
-        System.out.println(addForm);
-        productsService.insert(addForm);
-        model.addAttribute("errorMsg","IDまたはパスワードが不正です");
-        return "redirect:/menu";
+        try{
+
+            productsService.insert(addForm);
+            successIndex = 1;
+            return "redirect:/menu";
+        }catch (RuntimeException e){
+            System.out.println("catch");
+            model.addAttribute("errorMsg","商品コードが重複しています");
+            return "insert";
+        }
+
+
+
     }
 
 
@@ -114,8 +127,15 @@ public class controller {
         if(bindingResult.hasErrors()) {
             return "updateInput";
         }
-        productsService.update(addForm,id);
-        return "redirect:/menu";
+        try{
+            productsService.update(addForm,id);
+            successIndex = 2;
+            return "redirect:/menu";
+        }catch (RuntimeException e){
+            model.addAttribute("errorMsg","商品コードが重複しています");
+            return "updateInput";
+        }
+
     }
 
     @GetMapping("/category")
@@ -137,11 +157,9 @@ public class controller {
     @GetMapping("/delete/{id}")
     public String delete(@Validated @PathVariable("id") int id,Model model){
         productsService.delete(id);
-        return "redirect:/menu";
+        successIndex = 3;
+        return "delete";
     }
-
-
-
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable("id") int id ,Model model){
@@ -152,11 +170,6 @@ public class controller {
         model.addAttribute("product",productsService.findById(id));
         return  "detail";
     }
-
-
-
-
-
 
 
 }

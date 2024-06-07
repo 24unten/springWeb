@@ -12,15 +12,14 @@
 
 <div class="insert">
     <div class="form-body">
-<!--        <p class="error">エラーメッセージ</p>-->
-<!--        -->
+        <p class="error">[[ ${errorMsg} ]]</p>
 
         <form action="" method="post" th:object="${addForm}">
             <fieldset class="label-130">
                 <div>
                     <label>商品ID</label>
                     <input type="text" name="productId" class="base-text" th:field="*{product_id}">
-                    <p class="error">[[ ${errorMsg} ]]</p>
+                    <span class="error" th:each="error: ${#fields.errors('product_id')}">[[ ${error} ]]</span>
 
                 </div>
                 <div>
